@@ -1,7 +1,7 @@
 module go.w1ck3dg0ph3r.dev/vanity
 
-go 1.25
+go 1.27
 
-require github.com/fsnotify/fsnotify v1.9.0
+require github.com/fsnotify/fsnotify v1.10.1
 
-require golang.org/x/sys v0.37.0 // indirect
+require golang.org/x/sys v0.49.0 // indirect
