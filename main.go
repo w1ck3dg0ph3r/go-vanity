@@ -180,6 +180,7 @@ func (vs Vanities) Handler() http.Handler {
 func VanityHandler(v forges.Vanity) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		pkg := strings.TrimSuffix(r.Host+r.URL.Path, "/")
+		root := r.Host + "/" + v.Module()
 
 		if r.URL.Query().Get("go-get") != "1" {
 			w.Header().Add("Location", "https://pkg.go.dev/"+pkg)
@@ -190,14 +191,14 @@ func VanityHandler(v forges.Vanity) http.Handler {
 		res := &bytes.Buffer{}
 
 		res.WriteString(`<meta name="go-import" content="`)
-		res.WriteString(pkg)
+		res.WriteString(root)
 		res.WriteString(" git ")
 		res.WriteString(v.VCSHome())
 		res.WriteString("\">\n")
 
 		if v.VCSSourceDir() != "" && v.VCSSourceFile() != "" {
 			res.WriteString(`<meta name="go-source" content="`)
-			res.WriteString(pkg)
+			res.WriteString(root)
 			res.WriteString(" ")
 			res.WriteString(v.VCSHome())
 			res.WriteString(" ")
